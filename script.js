@@ -33,42 +33,38 @@ let products = [product1 , product2, product3, product4, product5];
 // - For larger orders, apply an additional 10% discount.
 // Inside the function, use this adjusted discount to calculate the total cost and return the result.
 
-// function calculateTotalCost(product) {
+function calculateTotalCost(product) {
     // Initialize a variable for the discount.
-    // let discount = product.discount;
+    let discount = product.discount;
 
     // Adjust the discount based on quantity.
     // (Hint: Use conditional statements to check for medium-sized or large order quantities to add the extra discount.)
 
+    if (product.quantity >= 10 && product.quantity <= 50) {
+        //medium sized quantity is between 10 and 50
+        discount += 5;
+    }else if (product.quantity > 50){
+        //large sized quantity is greater than 50
+        discount += 10;
+    }
     // Calculate and return the total cost after applying the adjusted discount.
     // Use the product's price, quantity, and discount to find this value.
-// }
-
-
-function calculateTotalCost(product) {
-    // Initialize the discount with the base discount
-    let discount = product.discount;
-
-    // Adjust the discount based on quantity
-    if (product.quantity >= 10 && product.quantity <= 50) {
-        // Medium-sized orders (quantity between 10 and 50)
-        discount += 5; // Add 5% extra discount
-    } else if (product.quantity > 50) {
-        // Large orders (quantity greater than 50)
-        discount += 10; // Add 10% extra discount
-    }
-
-    // Calculate the total cost after applying the discount
     const totalCost = product.price * product.quantity * (1 - discount / 100);
 
     return totalCost;
 }
+
 // Step 4: Determine Low Stock
 // Create a function named isLowStock that checks if a product's quantity is below its lowStockThreshold.
 // If the quantity is lower than the threshold, return true to indicate low stock; otherwise, return false.
 
 function isLowStock(product) {
     // Compare the product quantity with its lowStockThreshold and return the appropriate value.
+    if (product.quantity < product.lowStockThreshold) {
+        return true; 
+    } else {
+        return false;
+    }
 }
 
 
@@ -81,9 +77,13 @@ function calculateTotalRevenue(products) {
     let totalRevenue = 0;
 
     // Loop through each product in the products array.
-    // For each product, add its total cost (calculated by the calculateTotalCost function) to the total revenue.
+    for(let i = 0; i < products.length; i++){
+        // For each product, add its total cost (calculated by the calculateTotalCost function) to the total revenue.
+        totalRevenue += calculateTotalCost(products[i]);
+    }
 
     // Return the calculated total revenue.
+    return totalRevenue;
 }
 
 
@@ -96,8 +96,12 @@ function calculateAveragePrice(products) {
     let totalPrice = 0;
 
     // Loop through each product to add its price to the total.
-
+for(let i = 0; i< products.length; i++){
+    totalPrice += products[i].price;
+}
     // Calculate and return the average price by dividing the total by the number of products.
+    let averagePrice = totalPrice/products.length;
+    return averagePrice;
 }
 
 
